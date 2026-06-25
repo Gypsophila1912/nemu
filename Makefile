@@ -4,7 +4,7 @@
 # ==============================================================================
 
 .DEFAULT_GOAL := help
-.PHONY: help setup lint test build clean dev
+.PHONY: help setup lint lint-fix format format-check build clean dev start
 
 # カラー定義
 GREEN  := \033[0;32m
@@ -31,8 +31,28 @@ setup:
 	npm ci
 	@echo "$(GREEN)Done!$(RESET)"
 
-## 🔍 lint: 型チェック
+## 🔍 lint: ESLint で静的解析
 lint:
+	@echo "$(YELLOW)Linting...$(RESET)"
+	npm run lint
+	@echo "$(GREEN)Lint passed$(RESET)"
+
+## 🔧 lint-fix: ESLint 自動修正
+lint-fix:
+	npm run lint:fix
+
+## 🎨 format: Prettier でフォーマット
+format:
+	npm run format
+
+## 🎨 format-check: Prettier フォーマットチェック（変更なし）
+format-check:
+	@echo "$(YELLOW)Format checking...$(RESET)"
+	npm run format:check
+	@echo "$(GREEN)Format check passed$(RESET)"
+
+## 🔍 typecheck: TypeScript 型チェック
+typecheck:
 	@echo "$(YELLOW)Type checking...$(RESET)"
 	npx tsc --noEmit
 	@echo "$(GREEN)Type check passed$(RESET)"

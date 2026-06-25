@@ -6,22 +6,12 @@
 pre-commit:
   parallel: true # 並列実行で高速化
   commands:
+    typecheck:
+      run: make typecheck
     lint:
       run: make lint
-      # 特定ファイルだけチェックしたい場合は glob で絞れる
-      # glob: "*.{ts,js}"
-
     format-check:
       run: make format-check
-      # フォーマットが崩れていたらコミットを止める
-    typecheck:
-      run: npx tsc --noEmit
-
-# push 前に実行（重めのチェックはここに）
-pre-push:
-  commands:
-    test:
-      run: make test
 
 # コミットメッセージの形式チェック（Conventional Commits）
 commit-msg:
