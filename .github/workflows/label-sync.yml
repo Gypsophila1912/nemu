@@ -1,0 +1,25 @@
+name: Sync Labels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.yml # labels.yml が変更されたときだけ実行
+  workflow_dispatch: # 手動実行も可能
+
+permissions:
+  issues: write
+
+jobs:
+  sync:
+    name: Sync labels to GitHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync labels
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          delete-other-labels: true # labels.yml にないラベルは削除する
+          token: ${{ secrets.GITHUB_TOKEN }}

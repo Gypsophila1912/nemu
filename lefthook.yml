@@ -1,0 +1,42 @@
+# Lefthook — Git フック設定
+# インストール: https://github.com/evilmartians/lefthook
+# セットアップ: lefthook install
+
+# コミット前に実行
+pre-commit:
+  parallel: true # 並列実行で高速化
+  commands:
+    lint:
+      run: make lint
+      # 特定ファイルだけチェックしたい場合は glob で絞れる
+      # glob: "*.{ts,js}"
+
+    format-check:
+      run: make format-check
+      # フォーマットが崩れていたらコミットを止める
+
+# push 前に実行（重めのチェックはここに）
+pre-push:
+  commands:
+    test:
+      run: make test
+
+# コミットメッセージの形式チェック（Conventional Commits）
+commit-msg:
+  commands:
+    lint-message:
+      run: |
+        MSG=$(cat {1})
+        PATTERN="^(feat|fix|docs|style|refactor|test|chore|revert)(\(.+\))?: .{1,100}"
+        if ! echo "$MSG" | grep -qE "$PATTERN"; then
+          echo ""
+          echo "❌ コミットメッセージが Conventional Commits 形式ではありません"
+          echo ""
+          echo "正しい形式: <type>(<scope>): <summary>"
+          echo "例) feat(auth): ログイン機能を追加"
+          echo "    fix(api): NULLポインタ例外を修正"
+          echo ""
+          echo "type 一覧: feat / fix / docs / style / refactor / test / chore / revert"
+          echo ""
+          exit 1
+        fi

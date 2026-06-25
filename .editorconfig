@@ -1,0 +1,43 @@
+root = true
+
+# ==== デフォルト（全ファイル共通） ====
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# ==== Markdown ====
+# 行末スペース2つが改行になるため trailing whitespace は保持
+[*.md]
+trim_trailing_whitespace = false
+
+# ==== Python ====
+# PEP8 準拠: インデント4スペース
+[*.py]
+indent_size = 4
+
+# ==== Go ====
+# gofmt 準拠: タブ
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# ==== Rust ====
+[*.rs]
+indent_size = 4
+
+# ==== Makefile ====
+# タブ必須
+[Makefile]
+indent_style = tab
+
+# ==== YAML / JSON / TOML ====
+[*.{yml,yaml,json,toml}]
+indent_size = 2
+
+# ==== Shell ====
+[*.sh]
+indent_size = 2
