@@ -14,6 +14,8 @@ pre-commit:
     format-check:
       run: make format-check
       # フォーマットが崩れていたらコミットを止める
+    typecheck:
+      run: npx tsc --noEmit
 
 # push 前に実行（重めのチェックはここに）
 pre-push:
