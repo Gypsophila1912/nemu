@@ -1,9 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
+import ws from "ws";
 
 // スパベースクライアントの初期化
 const supabase = createClient(
-  process.env.SUPABASE_URL ?? "",
-  process.env.SUPABASE_ANON_KEY ?? "",
+  (process.env.SUPABASE_URL ?? "").trim(),
+  (process.env.SUPABASE_ANON_KEY ?? "").trim(),
+  {
+    db: {
+      schema: "public",
+    },
+    realtime: {
+      // Node.js 20 は WebSocket がネイティブ未対応のため ws を使用
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transport: ws as any,
+    },
+  },
 );
 
 export type Keyword = {

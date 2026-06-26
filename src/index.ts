@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { REST, Routes } from "discord.js";
 
 import { createBot } from "./bot";

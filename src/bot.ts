@@ -52,8 +52,8 @@ export function createBot(): Client {
     ],
   });
 
-  // readyイベント(起動時に1回のみ発火)
-  client.once("ready", () => {
+  // clientReadyイベント(起動時に1回のみ発火)
+  client.once("clientReady", () => {
     const targets = getTargetChannels();
     console.log(`Bot起動完了：${client.user?.tag}`);
     console.log(
