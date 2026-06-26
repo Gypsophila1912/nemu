@@ -1,7 +1,6 @@
 import { REST, Routes } from "discord.js";
 
 import { createBot } from "./bot";
-import { startHealthServer } from "./healthServer";
 import { listCommand, addCommand, removeCommand } from "./commands";
 
 // 環境変数チェック
@@ -37,7 +36,6 @@ async function registerCommands(): Promise<void> {
 // 起動処理
 async function main(): Promise<void> {
   await registerCommands();
-  startHealthServer();
 
   const bot = createBot();
   await bot.login(TOKEN);
